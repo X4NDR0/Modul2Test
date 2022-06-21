@@ -1,0 +1,37 @@
+﻿@using Modul2Test2.SqlFacade;
+@model Modul2Test2.SqlFacade.Employee;
+@{
+    Layout = null;
+}
+
+<html>
+<head>
+    <style type="text/css">
+        .searchContainer {
+            display: inline-block;
+        }
+    </style>
+    <title>Add employe</title>
+</head>
+
+
+<body>
+    <h1>Dodavanje radnika</h1>
+    @using (Html.BeginForm("AddEmployee", "Employee", FormMethod.Post))
+    {
+        <p class="searchContainer">Ime i prezime:</p>
+        @Html.TextBoxFor(x => x.NameAndSurname)
+
+        <br />
+
+        <p class="searchContainer">Radno mesto:</p>
+        @Html.TextBoxFor(x => x.Workplace)
+
+        <br />
+
+        <button type="submit">Submit</button>
+    }
+</body>
+
+
+</html>

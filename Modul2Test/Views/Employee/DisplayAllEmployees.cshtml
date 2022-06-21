@@ -1,0 +1,46 @@
+﻿@using Modul2Test2.SqlFacade;
+@model Modul2Test.ViewModels.DisplayAllEmployeesViewModel;
+@{
+    Layout = null;
+}
+
+<html>
+<head>
+    <title>Employees</title>
+</head>
+
+
+<body>
+    <table border="1">
+
+        <tr>
+            <th>Ime i prezime</th>
+            <th>Radno mesto</th>
+            <th>Ukupno radio</th>
+        </tr>
+
+        @foreach (Employee employee in Model.Employees)
+        {
+            int finishedJobs = 0;
+            foreach (Zadatak task in Model.Tasks)
+            {
+                if (task.WorkerID == employee.ID && task.Status == "zavrsen")
+                {
+                    finishedJobs += 1;
+                }
+            }
+            <tr>
+                <td>@employee.NameAndSurname</td>
+                <td>@employee.Workplace</td>
+                <td>@finishedJobs</td>
+            </tr>
+        }
+
+    </table>
+
+    @Html.ActionLink("Main page","Index","Task")
+
+</body>
+
+
+</html>

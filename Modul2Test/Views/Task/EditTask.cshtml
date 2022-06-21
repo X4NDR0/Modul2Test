@@ -1,0 +1,62 @@
+﻿@model Modul2Test.ViewModels.EditTaskViewModel
+@{
+    Layout = null;
+}
+
+<html>
+
+<head>
+    <style type="text/css">
+        .searchContainer {
+            display: inline-block;
+        }
+    </style>
+    <title>Edit page</title>
+</head>
+
+<body>
+    @{
+        List<SelectListItem> statusOptions = new List<SelectListItem>();
+        statusOptions.Add(new SelectListItem { Text = "zavrsen", Value = "zavrsen" });
+        statusOptions.Add(new SelectListItem { Text = "dodeljen", Value = "dodeljen" });
+        statusOptions.Add(new SelectListItem { Text = "u toku", Value = "u toku" });
+    }
+
+
+    @using (Html.BeginForm("EditTask", "Task", FormMethod.Post))
+    {
+        <p class="searchContainer">Naslov:</p>
+        @Html.TextBoxFor(x => x.Task.Title)
+
+        <br />
+
+        <p class="searchContainer">Procenjeno vreme:</p>
+        @Html.TextBoxFor(x => x.Task.EstimatedTime)
+
+        <br />
+
+        <p class="searchContainer">Tezina:</p>
+        @Html.TextBoxFor(x => x.Task.Difficulty)
+
+        <br />
+
+        <p class="searchContainer">Opis:</p>
+        @Html.TextBoxFor(x => x.Task.Description)
+
+        <br />
+
+        <p class="searchContainer">Stanje:</p>
+        @Html.DropDownListFor(x => x.Task.Status,statusOptions)
+
+        <br />
+
+        @Html.HiddenFor(x => x.Task.ID,Model.Task.ID)
+        @Html.HiddenFor(x => x.Task.WorkerID,Model.Task.WorkerID)
+
+        <button type="submit">Submit!</button>
+    }
+
+</body>
+
+
+</html>

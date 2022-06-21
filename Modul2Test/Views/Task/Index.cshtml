@@ -1,0 +1,109 @@
+﻿@using Modul2Test2.SqlFacade
+@model Modul2Test.ViewModels.IndexViewModel;
+@{
+    Layout = null;
+}
+
+<html>
+
+<head>
+    <style type="text/css">
+        .searchContainer {
+            display: inline-block;
+        }
+    </style>
+    <title>Main Page</title>
+</head>
+
+<body>
+    <h1>Dodaj zadatak</h1>
+
+    @using (Html.BeginForm("Index", "Task", FormMethod.Post))
+    {
+        <p class="searchContainer">Naslov:</p>
+        @Html.TextBoxFor(x => x.Task.Title)
+        @Html.ValidationMessageFor(x => x.Task.Title)
+
+        <br />
+
+        <p class="searchContainer">Procenjeno vreme:</p>
+        @Html.TextBoxFor(x => x.Task.EstimatedTime)
+        @Html.ValidationMessageFor(x => x.Task.EstimatedTime)
+
+        <br />
+
+        <p class="searchContainer">Tezina zadatka:</p>
+        @Html.TextBoxFor(x => x.Task.Difficulty)
+        @Html.ValidationMessageFor(x => x.Task.Difficulty)
+
+        <br />
+
+        List<SelectListItem> statusOptions = new List<SelectListItem>();
+        statusOptions.Add(new SelectListItem { Text = "zavrsen", Value = "zavrsen" });
+        statusOptions.Add(new SelectListItem { Text = "dodeljen", Value = "dodeljen" });
+        statusOptions.Add(new SelectListItem { Text = "u toku", Value = "u toku" });
+        List<SelectListItem> workers = new List<SelectListItem>();
+        @foreach (Employee employees in Model.Employees)
+        {
+            SelectListItem item = new SelectListItem { Text = employees.NameAndSurname, Value = employees.ID.ToString() };
+            workers.Add(item);
+        }
+
+        <p class="searchContainer">Radnik:</p>
+        @Html.DropDownListFor(x => x.Task.WorkerID,workers)
+
+        <br />
+
+        <p class="searchContainer">Opis:</p>
+        @Html.TextBoxFor(x => x.Task.Description)
+        @Html.ValidationMessageFor(x => x.Task.Description)
+
+        <br />
+
+        <p class="searchContainer">Stanje:</p>
+        @Html.DropDownListFor(x => x.Task.Status,statusOptions)
+        ;
+
+        <br />
+
+        <button type="submit">Submit</button>
+    }
+
+    <p>Prosecno vreme trajanje zadatka : 8</p>
+
+    <table border="1">
+        <tr>
+            <th>Naslov</th>
+            <th>Procenjeno vreme</th>
+            <th>Tezina zadatka</th>
+            <th>Opis</th>
+            <th>Radnik</th>
+            <th>Status</th>
+        </tr>
+        @if (Model.Tasks.Count != 0)
+        {
+            @foreach (Zadatak zadatak in Model.Tasks)
+            {
+                Employee employee = Model.Employees.FirstOrDefault(x => x.ID == zadatak.WorkerID);
+
+                <tr>
+                    <td>@zadatak.Title</td>
+                    <td>@zadatak.EstimatedTime</td>
+                    <td>@zadatak.Difficulty</td>
+                    <td>@zadatak.Description</td>
+                    <td>@employee.NameAndSurname</td>
+                    <td>@zadatak.Status</td>
+                    <td>@Html.ActionLink("Izmeni","EditTask","Task",new {taskId = zadatak.ID})</td>
+                    <td>@Html.ActionLink("Obrisi","RemoveTask","Task",new {taskId = zadatak.ID})</td>
+                </tr>
+            }
+        }
+
+    </table>
+
+    @Html.ActionLink("Display all employees","DisplayAllEmployees","Employee")
+    @Html.ActionLink("Add employee","AddEmployee","Employee")
+
+</body>
+
+</html>

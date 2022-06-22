@@ -6,6 +6,7 @@ namespace Modul2TestUnitTest
     public class Tests
     {
         private SqlFacade _sqlFacade;
+
         public Tests()
         {
             _sqlFacade = new SqlFacade();

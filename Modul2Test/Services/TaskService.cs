@@ -7,6 +7,7 @@ namespace Modul2Test.Services
     public class TaskService : ITaskService
     {
         private ISqlFacade _ISqlFacade;
+
         public TaskService(ISqlFacade ISqlFacade)
         {
             _ISqlFacade = ISqlFacade;
@@ -33,11 +34,12 @@ namespace Modul2Test.Services
             _ISqlFacade.EditTask(task);
         }
 
-        public Zadatak GetTask(int taskId)
+        public EditTaskViewModel GetTask(int taskId)
         {
             List<Zadatak> tasks = _ISqlFacade.GetAllTasks();
             Zadatak task = tasks.FirstOrDefault(x => x.ID == taskId);
-            return task;
+            EditTaskViewModel model = new EditTaskViewModel { Task = task };
+            return model;
         }
 
         public IndexViewModel CreatingIndexViewModel()

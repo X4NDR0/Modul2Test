@@ -5,6 +5,7 @@ namespace Modul2Test2.SqlFacade
     public class SqlFacade : ISqlFacade
     {
         private string _connectionString = "Data Source=DESKTOP-QS7CCGF\\SQLEXPRESS;Initial Catalog=Modul2Test2;Integrated Security=true";
+
         public int AddTask(Zadatak task)
         {
             using (SqlConnection sqlConnection = new SqlConnection(_connectionString))

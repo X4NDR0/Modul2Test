@@ -9,7 +9,7 @@ namespace Modul2Test.Services.Interfaces
         public List<Zadatak> GetAllTasks();
         public void RemoveTask(int taskId);
         public void EditTask(Zadatak task);
-        public Zadatak GetTask(int taskId);
+        public EditTaskViewModel GetTask(int taskId);
         public IndexViewModel CreatingIndexViewModel();
     }
 }

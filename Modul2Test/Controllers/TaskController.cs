@@ -42,8 +42,8 @@ namespace Modul2Test.Controllers
 
         public IActionResult EditTask(int taskId)
         {
-            Zadatak task = _ITaskService.GetTask(taskId);
-            return View(task);
+            EditTaskViewModel model = _ITaskService.GetTask(taskId);
+            return View(model);
         }
 
         [HttpPost]
